@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقة تهنئة بعيد الفطر المبارك</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Changa', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(to bottom right, #fdfdfd, #eaeaea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            color: #2c2c2c;
+        }
+
+        .container {
+            background-color: #fff;
+            max-width: 850px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: #3a3a3a;
+        }
+
+        .input-group {
+            margin: 30px 0;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #888;
+            outline: none;
+        }
+
+        .btn {
+            background-color: #3a3a3a;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            margin: 10px 7px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #222;
+            transform: scale(1.05);
+        }
+
+        .result-container {
+            position: relative;
+            margin-top: 35px;
+        }
+
+        #resultImage {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .name-overlay {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.6rem;
+            color: black;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.6);
+            width: 90%;
+            text-align: center;
+        }
+
+        .share-container {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .share-text {
+            width: 100%;
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .name-overlay {
+                font-size: 2rem;
+            }
+
+            .container {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ بطاقة تهنئة بمناسبة عيد الفطر المبارك ✨</h1>
+
+        <div class="input-group">
+            <input type="text" id="nameInput" placeholder="اكتب اسمك هنا..." autocomplete="off">
+        </div>
+
+        <button class="btn" id="generateBtn">✨ إنشاء التهنئة ✨</button>
+
+        <div id="resultSection" class="hidden">
+            <div class="result-container">
+                <img id="resultImage" src="" alt="بطاقة تهنئة">
+                <div id="nameOverlay" class="name-overlay"></div>
+            </div>
+
+            <div class="share-container">
+                <p class="share-text">💌 شارك التهنئة مع من تحب:</p>
+                <button class="btn" id="downloadBtn">تحميل الصورة</button>
+                <button class="btn" id="shareBtn">مشاركة</button>
+            </div>
+        </div>
+        <p style="text-align: center;"> حسابي في منصة الانستغرام: <a href="https://www.instagram.com/ei0o/" target="_blank"> @ei0o</a></p>
+    </div>
+
+    <script>
+        const nameInput = document.getElementById('nameInput');
+        const generateBtn = document.getElementById('generateBtn');
+        const resultSection = document.getElementById('resultSection');
+        const resultImage = document.getElementById('resultImage');
+        const nameOverlay = document.getElementById('nameOverlay');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const shareBtn = document.getElementById('shareBtn');
+
+        const baseImageURL = 'eid.png';
+
+        generateBtn.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            if (!name) return alert('يرجى إدخال الاسم أولاً.');
+
+            resultImage.src = baseImageURL;
+            nameOverlay.textContent = name;
+            resultSection.classList.remove('hidden');
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            if (!name) return;
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = resultImage.naturalWidth;
+            canvas.height = resultImage.naturalHeight;
+
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.src = baseImageURL;
+
+            img.onload = function () {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                ctx.font = 'bold 30px "Changa", sans-serif';
+                ctx.fillStyle = 'black';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.shadowBlur = 5;
+                ctx.fillText(name, canvas.width / 2, canvas.height * 0.55);
+
+                const dataUrl = canvas.toDataURL('image/jpeg');
+                const link = document.createElement('a');
+                link.download = `تهنئة_عيد_الفطر_${name}.jpg`;
+                link.href = dataUrl;
+                link.click();
+            };
+        });
+
+        shareBtn.addEventListener('click', () => {
+            const name = nameInput.value.trim();
+            if (!name || !navigator.share) {
+                return alert('المشاركة غير مدعومة في هذا المتصفح.');
+            }
+
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = resultImage.naturalWidth;
+            canvas.height = resultImage.naturalHeight;
+
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.src = baseImageURL;
+
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                ctx.font = 'bold 30px "Changa", sans-serif';
+                ctx.fillStyle = 'black';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.shadowBlur = 5;
+                ctx.fillText(name, canvas.width / 2, canvas.height * 0.55);
+
+                canvas.toBlob(blob => {
+                    const file = new File([blob], 'eid_greeting.jpg', { type: 'image/jpeg' });
+                    navigator.share({
+                        title: 'تهنئة عيد الفطر',
+                        text: `تهنئة خاصة بمناسبة عيد الفطر المبارك 🎉\nاسم: ${name}\ninstagram.com/@ei0o`,
+                        files: [file]
+                    }).catch(console.error);
+                }, 'image/jpeg');
+            };
+        });
+    </script>
+</body>
+</html>
